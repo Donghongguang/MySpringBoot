@@ -1,23 +1,45 @@
 <template>
-  <div id="app">
+  <!-- <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
+  </div>-->
+  <div id="login">
+    <form>
+      <label for="username">用户名</label>
+      <input type="text" v-model.trim="loginData.username" name="username">
+      <label for="password">密码</label>
+      <input type="text" v-model.trim="loginData.password" name="password">
+      <input type="button" value="登录" @click="doLogin">
+    </form>
   </div>
 </template>
 
 <script>
+import utils from "./utils/utils.js";
 export default {
-  name: 'App'
-}
+  name: "login",
+  data() {
+    return {
+      loginData: {
+        username: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    doLogin() {
+      let success = response => {
+        alert(response.data.msg);
+      }
+      utils.axiosMethod({
+        method: "POST",
+        url: "/user/login",
+        data: this.loginData,
+        callback: success
+      })
+    }
+  }
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+
