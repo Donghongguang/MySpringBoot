@@ -80,6 +80,7 @@
         </a>
       </li>
     </ul>
+    <router-view/>
   </div>
 </template>
 
@@ -111,3 +112,4 @@ a {
   color: #42b983;
 }
 </style>
+
