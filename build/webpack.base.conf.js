@@ -3,6 +3,10 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+var webpack = require('webpack')
+
+// 增加一个plugins
+
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -101,4 +105,11 @@ module.exports = {
       }
     },
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    })
+   ],
+ 
 }
