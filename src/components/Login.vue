@@ -1,7 +1,7 @@
 <template>
 
   <div id="login" class="mycontainer">
-    <router-view v-if="isRouterAlive"/>
+   
     <form >
       <div id="abc"  class="logincontainer">
       <label for="username" >用户名:</label>
@@ -17,47 +17,21 @@
  
   </div>
 </template>
-<style>
-.mycontainer{
-position: fixed;
-top: 50%;
-left: 50%;
-background-color:white;
-height:400px;
-width:500px;
-};
-.logincontainer{
-  position: absolute;
 
-
-}
-.myloginbtn{
-  margin-left: 55px;
-}
-.myresetbtn{
-  margin-left:82px;
-}
-</style>
 <script>
 import utils from "@/utils/utils.js";
 import router from "@/router/index.js";
 import HelloWorld from '@/components/HelloWorld.vue';
 export default {
  name:'login',
- provide(){
-return {
-    reload:this.reload
-}
- },
   data() {
- 
     return {
       loginData: {
         username: "",
         password: "",
        
       },
-      isRouterAlive:true
+     
     };
   },
   methods: {
@@ -71,12 +45,19 @@ return {
       let success = response => {
         alert(response.data.msg);
         if(response.data.code==2){
-          this.$router.push({
-            path:'mainmenu'
-           });
+          
+          console.log(response.data.obj['apiToken']);
+          localStorage.setItem('token',response.data.obj['apiToken']);
+          localStorage.setItem('userId',response.data.obj['userId']);
+        
+             console.log("登陆成功之后跳转");
+               this.$router.push({
+                 path:"/mainmenu"
+                 });
+          }
          
         }
-      }
+      
       utils.axiosMethod({
         method: "POST",
         url: "/user/login",

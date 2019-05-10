@@ -1,13 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import App from '@/App'
 import Login from '@/components/Login'
 import HelloWorld from '@/components/HelloWorld'
 import MainMenu from '@/components/MainMenu'
 Vue.use(Router);
 const routes=[ 
   {
-        path:'/goback',
-        redirect:'/login'
+    path:'/',
+    redirect:'/login'
+  },
+  {
+    path:'/app',
+    name:'App',
+    component:App,
+    redirect:{
+      path:'/goback'
+    }
+  },
+  {
+    path:'/login',
+    name:'login',
+    component:Login
   },
 {
   path: '/helloWorld',
@@ -17,11 +31,10 @@ const routes=[
 {
   name:'MainMenu',
   path:'/mainmenu',
-  component:MainMenu
-},{
-  path:'/login',
-  name:'login',
-  component:Login
+  component:MainMenu,
+  meta:{
+        requireAuth:true
+  }
 }
 ]
 const router = new Router({
